@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/bootstrap-4.2.1-dist/css/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 卡片 -->
+        <div class="card">
+            <div class="card-header">
+                添加品牌
+            </div>
+            <div class="card-body">
+                <!-- submit -->
+                <form @submit.prevent="add">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">品牌名稱</div>
+                                </div>
+                                <input type="text" class="from-control" placeholder="請輸入品牌名稱" v-model.trim="brand">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2">添加</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 表格 -->
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">品牌名稱</th>
+                    <th scope="col">狀態</th>
+                    <th scope="col">創建時間</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" :id="'id'+item.id"
+                                v-model="item.status">
+                            <label class="custom-control-label" :for="'id'+item.id" v-if="item.status">已啟用</label>
+                            <label class="custom-control-label" :for="'id'+item.id" v-else>已禁用</label>
+                        </div>
+                    </td>
+                    <td>{{item.time}}</td>
+                    <td><a href="" @click.prevent="remove(item.id)">刪除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="./lib/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                //用戶輸入品牌
+                brand: '',
+                //下一個可用的ID
+                nextId: 4,
+                //品牌的數據列表
+                list: [
+                    { id: 1, name: 'BMW', status: true, time: new Date() },
+                    { id: 2, name: 'Benz', status: false, time: new Date() },
+                    { id: 3, name: 'Audi', status: true, time: new Date() },
+
+                ]
+            },
+            methods: {
+                //點擊刪除，對應品牌
+                remove(id) {
+                    this.list = this.list.filter(item => item.id !== id)
+                },
+                //阻止表單默認提交，觸發add
+                add() {
+                    //如果判斷到brand的值為空字符串，則return出去
+                    if (this.brand === '') {
+                        alert('必須填寫！')
+                        return
+                    }
+                    //1.先把要添加的品牌對象整理出來
+                    const obj = {
+                        id: this.nextId,
+                        name: this.brand,
+                        status: true,
+                        time: new Date()
+                    }
+                    //2.往this.list數組中push步驟1得到的對象
+                    this.list.push(obj)
+                    //3.清空this.brand 讓this.nextId自增+1
+                    this.brand=''
+                    this.nextId++               
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

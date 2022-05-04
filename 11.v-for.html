@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/bootstrap-4.2.1-dist/css/bootstrap.css">
+</head>
+
+<body>
+    <!-- vue控制下面這個div，幫我們填充到div內部 -->
+    <div id="app">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <th>索引</th>
+                <th>ID</th>
+                <th>姓名</th>
+            </thead>
+            <tbody>
+                <!-- 官方建議 用v-for 一定要綁定 :key屬性 -->
+                <!-- 盡量把id作為key -->
+                <!-- 官方對key的值類型，要求為字符串或數字 -->
+                <!-- key不允許重複 （Duplicate keys detected） -->
+                <tr v-for="(item,i) in list" :key="item.id" :title="item.name + i">
+                    <td>{{i}}</td> 
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 導入vue文件 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 創建vue實例對象 -->
+    <script>
+        //創建實例對象
+        const vm = new Vue({
+            //el是固定寫法，表示當前vm要控制頁面上的哪個區域
+            el: '#app',
+            //data對象就是要渲染到頁面上的數據
+            data: {
+                list: [
+                    { id: 1, name: '小明' },
+                    { id: 2, name: '小華' },
+                    { id: 3, name: '小黃' },
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#073421",
+    "titleBar.activeBackground": "#0A492F",
+    "titleBar.activeForeground": "#EEFDF7"
+  },
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "html"
+  }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- vue控制下面這個div，幫我們填充到div內部 -->
+    <div id="app">
+        <a href="http://www.google.com" @click.prevent="show">跳轉到google</a>
+        <hr>
+        <div style=" height:150px;background-color:orange" @click="divHandler">
+            <button @click.stop="btnHandler">按鈕</button>
+        </div>
+    </div>
+    <!-- 導入vue文件 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 創建vue實例對象 -->
+    <script>
+        //創建實例對象
+        const vm = new Vue({
+            //el是固定寫法，表示當前vm要控制頁面上的哪個區域
+            el: '#app',
+            //data對象就是要渲染到頁面上的數據
+            data: {
+
+            },
+            methods: {
+                show() {
+                    console.log('點擊了連結')
+                },
+                btnHandler(e) {
+                    //e.stopPropagation();
+                    console.log('btnHandler')
+                },
+                divHandler() {
+                    console.log('divHandler')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- vue控制下面這個div，幫我們填充到div內部 -->
+    <div id="app">
+        <p>count的值是:{{count}}</p>
+        <!-- 如果count是偶數，按鈕背景變顏色 -->
+        <!-- vue 提供了內置變量，$event，為原生DOM的事件對象e-->
+        <button @click="add(1,$event)">+n</button>
+    </div>
+    <!-- 導入vue文件 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 創建vue實例對象 -->
+    <script>
+        //創建實例對象
+        const vm = new Vue({
+            //el是固定寫法，表示當前vm要控制頁面上的哪個區域
+            el: '#app',
+            //data對象就是要渲染到頁面上的數據
+            data: {
+                count: 0
+            },
+            methods: {
+                add(n,e) {
+                    this.count += n
+                    console.log(e)
+                    //判斷this.count的值是否為偶數
+                    if (this.count % 2 === 0) {
+                        e.target.style.backgroundColor = "red"
+                    } else {
+                        e.target.style.backgroundColor = ""
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

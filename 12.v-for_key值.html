@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- vue控制下面這個div，幫我們填充到div內部 -->
+    <div id="app">
+        <!-- 添加用戶的區域 -->
+        <div>
+            <input type="text" v-model="name">
+            <button @click="addNewUser">添加</button>
+        </div>
+        <!-- 用戶列表區域 -->
+        <!-- 如果把index當成key值，無法與對應欄位綁定 -->
+        <ul>
+            <li v-for="(user,i) in userlist" key="i">
+                <input type="checkbox">
+                姓名: {{user.name}}
+            </li>
+        </ul>
+    </div>
+    <!-- 導入vue文件 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 創建vue實例對象 -->
+    <script>
+        //創建實例對象
+        const vm = new Vue({
+            //el是固定寫法，表示當前vm要控制頁面上的哪個區域
+            el: '#app',
+            //data對象就是要渲染到頁面上的數據
+            data: {
+                //用戶列表
+                userlist: [
+                    { id: 1, name: '小明' },
+                    { id: 2, name: '小華' }
+                ],
+                //輸入的用戶名
+                name: '',
+                //下一個可用的id值
+                nextId: 3
+            },
+            methods: {
+                //點擊添加按鈕
+                addNewUser() {
+                    this.userlist.unshift({ id: this.nextId, name: this.name })
+                    this.name = ''
+                    this.nextId++
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

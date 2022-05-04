@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- vue控制下面這個div，幫我們填充到div內部 -->
+    <div id="app">
+        <input type="text" v-bind:placeholder="tips">
+        <input type="text" :placeholder="tips">
+        <hr>
+        <!-- vue規定v-bind: 可以簡寫為: -->
+        <img v-bind:src="photo" alt="">
+        <hr>
+        <div>1+2的結果是:{{ 1 + 2}}</div>
+        <div>{{tips}} 反轉的結果是:{{tips.split('').reverse().join('')}}</div>
+        <div :title="'box'+index">這是一個DIV</div>
+    </div>
+    <!-- 導入vue文件 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 創建vue實例對象 -->
+    <script>
+        //創建實例對象
+        const vm = new Vue({
+            //el是固定寫法，表示當前vm要控制頁面上的哪個區域
+            el: '#app',
+            //data對象就是要渲染到頁面上的數據
+            data: {
+                tips: '請輸入用戶名',
+                photo: "data:image/png;base64,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",
+                index:3,
+            }
+        })
+    </script>
+</body>
+
+</html>
